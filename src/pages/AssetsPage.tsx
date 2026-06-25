@@ -20,14 +20,15 @@ export default function AssetsPage() {
       <div className="card">
         <h3 className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <ImageIcon size={18} />
-          App Icon
+          Web/PWA Icons
         </h3>
         <div className="placeholder-box">
-          <div className="placeholder-title">Replace this file</div>
-          <div className="placeholder-desc">PNG, 1024x1024 pixels, square</div>
-          <div className="placeholder-path">public/assets/icons/icon.png</div>
+          <div className="placeholder-title">Provide final web icons</div>
+          <div className="placeholder-desc">Current manifest uses SVG icons; add PNG fallbacks if required</div>
+          <div className="placeholder-path">public/assets/icons/icon-192x192.svg</div>
+          <div className="placeholder-path">public/assets/icons/icon-512x512.svg</div>
         </div>
-        <p className="form-hint">This icon is used for the app launcher on the home screen and in the app drawer.</p>
+        <p className="form-hint">These icons are used by the browser install prompt and PWA manifest.</p>
       </div>
 
       <div className="card">
@@ -50,12 +51,12 @@ export default function AssetsPage() {
       <div className="card">
         <h3 className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Monitor size={18} />
-          Splash Screen
+          Android Splash Screen
         </h3>
         <div className="placeholder-box">
-          <div className="placeholder-title">Replace this file</div>
-          <div className="placeholder-desc">PNG, 2732x2732 pixels recommended</div>
-          <div className="placeholder-path">public/assets/icons/splash.png</div>
+          <div className="placeholder-title">Provide final native splash assets</div>
+          <div className="placeholder-desc">Generate Android density-specific PNGs from final artwork</div>
+          <div className="placeholder-path">android/app/src/main/res/drawable*/splash.png</div>
         </div>
         <p className="form-hint">Shown while the app is loading. Keep the logo centered with a solid background color.</p>
       </div>

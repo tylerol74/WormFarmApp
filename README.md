@@ -73,7 +73,7 @@ This opens Android Studio with the `android/` project. Alternatively, open the `
 
 1. In Android Studio, go to **Build > Generate Signed Bundle / APK...**
 2. Select **Android App Bundle (.aab)** and click **Next**.
-3. Click **Create new...** under **Key store path** to create a release keystore:
+3. Click **Create new...** under **Key store path** to create a release keystore when you are ready to configure production signing:
    - Save it as `android/app/release.keystore` (or a secure location).
    - Set a password and remember it.
    - Set an alias (e.g., `wormcast`) and a password.
@@ -82,6 +82,22 @@ This opens Android Studio with the `android/` project. Alternatively, open the `
 5. Choose **release** as the build variant.
 6. Click **Finish**. Android Studio will generate `android/app/release/app-release.aab`.
 7. Upload this `.aab` file to the Google Play Console.
+
+The Capacitor config does not define release signing. Configure signing in Android Studio when you are ready to publish.
+
+### Publish the Privacy Policy with GitHub Pages
+
+Google Play requires a public privacy policy URL. One simple option is GitHub Pages:
+
+1. Create a public GitHub repository for the policy or use the public project repository.
+2. Add a `privacy.html` or `privacy.md` page containing the WormCast privacy policy.
+3. In GitHub, open **Settings > Pages**.
+4. Under **Build and deployment**, choose the branch and folder that contain the policy page.
+5. Save the Pages settings and wait for GitHub to publish the site.
+6. Open the published URL in a private browser window to confirm it is publicly accessible.
+7. Add that public URL to the Google Play Console app content privacy policy field.
+
+Before publishing, replace the `SUPPORT_EMAIL_REQUIRED` placeholder in the privacy policy with a real support email address.
 
 ## Project Structure
 
@@ -93,8 +109,8 @@ This opens Android Studio with the `android/` project. Alternatively, open the `
   - `main.tsx` — App entry point
   - `index.css` — Global styles and design tokens
 - `public/` — Static assets
-  - `assets/icons/` — App icons (replace placeholder files)
-  - `assets/screenshots/` — Play Store screenshots
+  - `assets/icons/` — Web/PWA icon assets
+  - `assets/screenshots/` — Optional place to keep exported Play Store screenshots
 - `android/` — Capacitor Android project
 - `capacitor.config.ts` — Capacitor configuration
 - `vite.config.ts` — Vite build configuration with PWA support
@@ -102,10 +118,46 @@ This opens Android Studio with the `android/` project. Alternatively, open the `
 
 ## Assets You Still Need to Supply
 
-1. **App Icon** — Replace `public/assets/icons/icon.png` with a 1024x1024 PNG.
-2. **Adaptive Android Icon** — Use Android Studio's Image Asset Studio to generate foreground/background layers.
-3. **Splash Screen** — Replace `public/assets/icons/splash.png` with a 2732x2732 PNG.
-4. **Play Store Screenshots** — Add PNG/JPEG images to `public/assets/screenshots/` and upload them in the Google Play Console.
+### Web/PWA Icons
+
+The PWA manifest currently references:
+
+- `public/assets/icons/icon-192x192.svg`
+- `public/assets/icons/icon-512x512.svg`
+
+Review these SVGs before release and add PNG fallbacks only if you decide your target browsers or store workflow require them. The files `public/assets/icons/icon.png` and `public/assets/icons/splash.png` are not currently present in this repository.
+
+### Android Launcher and Adaptive Icons
+
+Android launcher assets live under `android/app/src/main/res/mipmap-*` and the adaptive icon XML files live under `android/app/src/main/res/mipmap-anydpi-v26/`.
+
+Use Android Studio's Image Asset Studio to generate final launcher and adaptive icons from final artwork:
+
+1. Open the `android/` project in Android Studio.
+2. Right-click `app/src/main/res`.
+3. Choose **New > Image Asset**.
+4. Generate the foreground, background, round, and legacy launcher assets.
+
+### Android Splash-Screen Assets
+
+Native splash images live under the Android resource folders:
+
+- `android/app/src/main/res/drawable/splash.png`
+- `android/app/src/main/res/drawable-land-*/splash.png`
+- `android/app/src/main/res/drawable-port-*/splash.png`
+
+Replace or regenerate these density-specific Android assets from final splash artwork. Keep the logo centered with enough padding for different screen sizes.
+
+### Google Play Listing Graphics
+
+These are uploaded to the Google Play Console and are separate from app runtime assets:
+
+- App icon for the Play listing
+- Feature graphic
+- Phone screenshots
+- Optional tablet screenshots
+
+Store source or export copies wherever you prefer. If you keep listing screenshots in the repo, use `public/assets/screenshots/`.
 
 ## Troubleshooting
 

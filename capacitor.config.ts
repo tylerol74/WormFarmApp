@@ -7,12 +7,6 @@ const config: CapacitorConfig = {
   server: {
     androidScheme: 'https',
   },
-  android: {
-    buildOptions: {
-      keystorePath: 'release.keystore',
-      keystoreAlias: 'wormcast',
-    },
-  },
 };
 
 export default config;

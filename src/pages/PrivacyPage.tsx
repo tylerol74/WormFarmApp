@@ -68,7 +68,7 @@ export default function PrivacyPage() {
 
       <div className="card">
         <h3 className="card-title">Contact</h3>
-        <p>If you have questions about this privacy policy, please contact Tyler Farris at the app store listing.</p>
+        <p>If you have questions about this privacy policy, please contact Tyler Farris at SUPPORT_EMAIL_REQUIRED.</p>
       </div>
     </div>
   );
